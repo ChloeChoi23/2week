@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {
+  height: 100vh; 
+  margin: 0;
+  display: flex; 
+  flex-direction: column;
+  justify-content: center; 
+  align-items: center;
+  background: #fff;
+  font-family: 'Spoqa Han Sans', 'Apple SD Gothic Neo', Arial, sans-serif;
+  background-image:url('calories.jpg');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+.calorie-box {
+  display: flex;                   
+  flex-direction: column;          
+  align-items: center;             
+  justify-content: center;         
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18); 
+  border-radius: 18px;
+  border: 1.7px solid rgba(255,255,255,0.45);
+  background: rgba(255,255,255,0.70); 
+  backdrop-filter: blur(2.5px);
+  min-width: 500px;
+  max-width: 700px;
+  padding: 60px 50px 70px 50px; 
+  text-align: center;
+  transition: box-shadow 0.3s;
+  text-align: center;
+  transition: box-shadow 0.3s;
+}
+.calorie-box:hover {
+  box-shadow: 0 12px 40px rgba(0,0,0,0.24); 
+}
+h2 {
+  font-size: 2.7rem;
+  margin-bottom: 30px;
+  font-weight: 700;
+}
+label {
+  font-size: 1.6rem;
+  display: block;
+  margin-bottom: 18px;
+}
+.center-ment {
+  margin-bottom: 20px;
+  font-size: 1.22rem;
+  color: #222;
+  text-align: center;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+.input-row-center {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+input[type="number"], .weight-input {
+  font-size: 1rem;
+  padding: 8px 2px;
+  border-radius: 7px;
+  border: 1.7px solid #bbb;
+  outline: none;
+  width: 135px;
+  text-align: left;      
+  padding-left: 8px;   
+  box-sizing: border-box;
+  margin: 0;
+  display: inline-block;
+}
+.weight-input {
+  margin: 0 auto 32px auto;
+  display: block;
+}
+.center-btn {
+  display: block;
+  margin: 0 auto;
+  margin-top: 56px;
+}
+calorie-box button {
+  display: block;
+  margin: 0 auto;
+  margin-top: 10px;  
+  background: #e09422;
+  color: #fff;
+  font-size: 1.36rem;
+  padding: 8px 22px;
+  border: none;
+  border-radius: 7px;
+  cursor: pointer;
+  font-weight: 600;
+}
+button {
+  background: #e09422;
+  color: #fff;
+  font-size: 1.36rem;
+  padding: 8px 22px;
+  border: none;
+  border-radius: 7px;
+  cursor: pointer;
+  width: auto;
+  display: block;
+  margin: 0 auto;
+}
+#result {
+  margin-top: 34px;
+  font-size: 1.16rem;
+  color: #b9852a;
+  font-weight: 700;
+  letter-spacing: -1px;
+}
+</style>
+</head>
+<body>
+<div class="calorie-box">
+  <h2>칼로리 소모량 계산기</h2>
+  <div class="center-ment">걸음 수 또는 운동 시간, 체중을 입력하세요.</div>
+  <div class="input-group">
+    <div class="input-row-center">
+      <input type="number" id="steps" placeholder="걸음 수(보)">
+      <input type="number" id="minutes" placeholder="운동 시간(분)">
+    </div>
+    <input type="number" id="weight" class="weight-input" placeholder="체중(kg)">
+    <button class="center-btn" onclick="calorieBurned()">계산하기</button>
+  </div>
+  <div id="result"></div>
+</div>
+<script>
+function calorieBurned() {
+  const steps = Number(document.getElementById('steps').value);
+  const minutes = Number(document.getElementById('minutes').value);
+  const weight = Number(document.getElementById('weight').value);
+  let calories = 0;
+  if (steps && weight) {
+    calories = 0.035 * steps;
+    document.getElementById('result').innerHTML =
+      `<span style="color:#b9852a">
+        <b>걸음수 ${steps}보</b>에 의한<br>
+        소모 칼로리 <b>${calories.toFixed(2)} kcal</b> (대략)<br>
+        </span>`;
+    return; 
+  }
+  else if (minutes && weight) {
+    calories = 0.08 * weight * minutes;
+    document.getElementById('result').innerHTML =
+      `<span style="color:#b9852a">
+        <b> 운동 시간${minutes}분, 체중 ${weight}kg</b> 기준<br>
+        소모 칼로리 <b>${calories.toFixed(2)} kcal</b> (평균값)<br>
+      </span>`;
+    return;
+  }
+  document.getElementById('result').innerHTML =
+    `<span style="color:red">적어도 걸음 수+체중 또는 시간+체중을 입력하세요.</span>`;
+}
+</script>
+</body>
+</html>
